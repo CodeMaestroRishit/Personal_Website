@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Rishit Guha</title>
+    <meta name="description"
+        content="Project portfolio of Rishit Guha — Phishing Detector, ResQ Healthcare, Vimana ResQ and more." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=20260305" />
+    <style>
+        /* ─── PROJECTS PAGE SPECIFIC ─── */
+        .projects-page-hero {
+            padding: 180px 0 80px;
+            text-align: center;
+            position: relative;
+            background: var(--bg-base);
+            overflow: hidden;
+        }
+
+        /* Floating particles canvas behind the hero */
+        #hero-particles {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .projects-page-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects-page-hero .section-label {
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .projects-page-hero h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+
+        .projects-page-hero p {
+            color: var(--text-sec);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Staggered hero animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes expandLine {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 80px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(232, 168, 56, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(232, 168, 56, 0.6);
+            }
+        }
+
+        .tc-anim-label {
+            opacity: 0;
+            animation: fadeInDown 0.6s ease forwards 0.2s;
+        }
+
+        .tc-anim-title {
+            opacity: 0;
+            animation: fadeInDown 0.8s ease forwards 0.5s;
+        }
+
+        .tc-anim-line {
+            display: inline-block;
+            height: 3px;
+            width: 0;
+            background: var(--accent);
+            border-radius: 2px;
+            margin: 1.5rem auto;
+            animation: expandLine 0.6s ease forwards 1s;
+        }
+
+        .tc-anim-desc {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards 1.2s;
+        }
+
+        .tc-anim-scroll {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 1.6s;
+        }
+
+        .tc-scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            color: var(--accent);
+        }
+
+        .tc-scroll-indicator span {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .tc-scroll-arrow {
+            font-size: 1.4rem;
+            animation: bounce-editorial 2s infinite;
+        }
+
+        /* Timeline warm background */
+        .timeline-section {
+            background: #fdf8f0;
+        }
+
+        /* ─── TIMELINE LAYOUT ─── */
+        .project-timeline {
+            max-width: 1000px;
+            /* Much wider */
+            margin: 5rem auto 0;
+            position: relative;
+            padding: 0 1.5rem 5rem;
+        }
+
+        /* Vertical line for the Time Capsule effect */
+
+        .timeline-progress {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+            z-index: 1;
+            height: 0;
+            box-shadow: 0 0 10px var(--accent);
+            transition: height 0.1s ease-out;
+        }
+
+        .pt-photo-wrap img {
+            width: 100%;
+            max-height: 480px;
+            object-fit: contain;
+            background: var(--bg-base);
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        /* Vertical line for the Time Capsule effect */
+        .project-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent) 5%, var(--accent) 95%, transparent);
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+
+        .pt-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        /* Timeline node */
+        .pt-node {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .pt-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-base);
+            border: 3px solid var(--text-primary);
+            box-shadow: 0 0 0 4px rgba(232, 168, 56, 0.2);
+            transition: all var(--transition);
+        }
+
+        .pt-dot.award-dot {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 5px rgba(232, 168, 56, 0.15);
+        }
+
+        .pt-item:hover .pt-dot {
+            box-shadow: 0 0 0 8px rgba(232, 168, 56, 0.3);
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Card container adjustments */
+        .pt-card {
+            padding: 2.5rem;
+            background: #ffffff;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            width: 45%;
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(232, 168, 56, 0.2);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .pt-item:hover .pt-card {
+            border-color: var(--orange);
+            transform: translateY(-5px);
+        }
+
+        /* Zig-zag orientation */
+        .pt-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* The connecting arrow for the timeline cards */
+        .pt-card::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        /* Arrow pointing right for odd items (left side) */
+        .pt-item:nth-child(odd) .pt-card::after {
+            right: -13px;
+            border-width: 12px 0 12px 14px;
+            border-color: transparent transparent transparent var(--accent);
+        }
+
+        /* Arrow pointing left for even items (right side) */
+        .pt-item:nth-child(even) .pt-card::after {
+            left: -13px;
+            border-width: 12px 14px 12px 0;
+            border-color: transparent var(--accent) transparent transparent;
+        }
+
+        .pt-item:hover:nth-child(odd) .pt-card::after {
+            border-color: transparent transparent transparent var(--orange-hover);
+        }
+
+        .pt-item:hover:nth-child(even) .pt-card::after {
+            border-color: transparent var(--orange-hover) transparent transparent;
+        }
+
+        .pt-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .pt-icon {
+            font-size: 1.5rem;
+        }
+
+        .pt-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--text-sec);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.8rem;
+            border-radius: 40px;
+        }
+
+        .pt-badge.featured {
+            background: var(--bg-base);
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .pt-year {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-left: auto;
+            font-weight: 500;
+        }
+
+        .pt-title {
+            font-size: 2.2rem;
+            /* Massive typography */
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        .pt-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-sec);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        /* Photo in timeline card */
+        .pt-photo-wrap {
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+            background: #fdfdfd;
+            border: 1px solid rgba(232, 168, 56, 0.2);
+            margin-bottom: 2rem;
+            padding: 1rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pt-photo-wrap img {
+            width: 100%;
+            max-height: 480px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .pt-photo-caption {
+            display: none;
+            /* Hide for minimalist look */
+        }
+
+        .pt-desc {
+            color: var(--text-sec);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+        }
+
+        .pt-highlights {
+            list-style: none;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .pt-highlights li {
+            font-size: 1.05rem;
+            color: var(--text-sec);
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .pt-highlights li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .pt-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .pt-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .pt-gh-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .pt-gh-link:hover {
+            color: var(--accent);
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--transition);
+            margin-bottom: 2.5rem;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+
+            .timeline-progress {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+
+            .pt-photo-wrap img {
+                width: 100%;
+                max-height: 480px;
+                object-fit: contain;
+                background: var(--bg-base);
+                display: block;
+            }
+
+            /* Vertical line for the Time Capsule effect */
+            .project-timeline::before {
+                left: 30px;
+                transform: none;
+            }
+
+            .project-timeline {
+                padding: 0 1rem 3rem;
+            }
+
+            .pt-item {
+                flex-direction: column !important;
+                align-items: flex-end;
+                margin-bottom: 4rem;
+            }
+
+            .pt-card {
+                width: calc(100% - 70px);
+                padding: 1.8rem 1.4rem;
+            }
+
+            .pt-node {
+                left: 30px;
+                top: 20px;
+                transform: translateX(-50%);
+            }
+
+            .pt-item:nth-child(odd) .pt-card::after,
+            .pt-item:nth-child(even) .pt-card::after {
+                left: -14px;
+                right: auto;
+                top: 20px;
+                border-width: 12px 14px 12px 0;
+                border-color: transparent var(--accent) transparent transparent;
+            }
+
+            .pt-item:hover:nth-child(odd) .pt-card::after,
+            .pt-item:hover:nth-child(even) .pt-card::after {
+                border-color: transparent var(--orange-hover) transparent transparent;
+            }
+
+            .pt-year {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Rishit<span class="accent">.</span>Guha</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html#about" class="nav-pill">About</a></li>
+                <li><a href="index.html#experience" class="nav-pill">Experience</a></li>
+                <li><a href="projects.html" class="nav-pill" style="background: var(--orange-hover);">Projects</a></li>
+                <li><a href="index.html#accolades" class="nav-pill">Awards</a></li>
+                <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="projects-page-hero">
+        <canvas id="hero-particles"></canvas>
+        <div class="container">
+            <a href="index.html" class="back-btn tc-anim-label">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Back to Home
+            </a>
+            <div class="section-label mono tc-anim-label"><span class="accent">03.</span> Projects</div>
+            <h1 class="tc-anim-title">The <span class="gradient-text">Time Capsule</span></h1>
+            <div class="tc-anim-line"></div>
+            <p class="tc-anim-desc">Moments that shaped the journey.</p>
+            <div class="tc-scroll-indicator tc-anim-scroll">
+                <span>Scroll to explore</span>
+                <div class="tc-scroll-arrow">↓</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <section>
+        <div class="project-timeline">
+            <!-- Scroll fill progress -->
+            <div class="timeline-progress" id="timelineProgress"></div>
+
+            <!-- VAANI REKHA -->
+            <div class="pt-item reveal">
+                <div class="pt-node">
+                    <div class="pt-dot award-dot"></div>
+                </div>
+                <div class="pt-card">
+                    <div class="pt-meta">
+                        <span class="pt-icon">🎙️</span>
+                        <span class="pt-badge">🏆 GUVI x HCL Buildathon</span>
+                        <span class="pt-year mono">Feb 2026</span>
+                    </div>
+                    <h2 class="pt-title">VaaniRekha</h2>
+                    <div class="pt-subtitle mono">AI Voice Fraud Detection API</div>
+                    <div class="pt-photo-wrap">
+                        <img src="delhi.jpeg" alt="VaaniRekha Project at GUVI x HCL Buildathon" />
+                        <div class="pt-photo-caption">🏆 GUVI x HCL Buildathon</div>
+                    </div>
+                    <p class="pt-desc">
+                        A FastAPI microservice designed to detect deepfake voices and fraud keywords (such as OTP,
+                        Aadhaar, PAN, and CVV) across 9+ Indian languages.
+                    </p>
+                    <ul class="pt-highlights">
+                        <li>Utilizes <span class="accent">Sarvam AI</span> and wav2vec2 for multilingual detection</li>
+                        <li>Achieves <span class="accent">&lt;6s latency</span> with tiered risk scoring
+                            (HIGH/MEDIUM/LOW)</li>
+                        <li>Dockerized on Railway with API authentication and health checks</li>
+                        <li>Validated using Postman for API reliability and fraud-detection accuracy</li>
+                    </ul>
+                    <div class="pt-footer">
+                        <div class="pt-tags">
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">AI/ML</span>
+                            <span class="tag">Sarvam AI</span>
+                            <span class="tag">Wav2Vec2</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Railway</span>
+                        </div>
+                        <a href="https://github.com/CodeMaestroRishit/VaaniRekha_Final_Submission" target="_blank"
+                            rel="noopener" class="pt-gh-link">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PHISHING DETECTOR -->
+            <div class="pt-item reveal">
+                <div class="pt-node">
+                    <div class="pt-dot award-dot"></div>
+                </div>
+                <div class="pt-card">
+                    <div class="pt-meta">
+                        <span class="pt-icon">🛡️</span>
+                        <span class="pt-badge">🥈 2nd Prize — RV University Hackathon</span>
+                        <span class="pt-year mono">Nov 2025</span>
+                    </div>
+                    <h2 class="pt-title">Phishing Detector</h2>
+                    <div class="pt-subtitle mono">ML Security Platform + Chrome Extension</div>
+                    <div class="pt-photo-wrap">
+                        <img src="Phishing%20project.jpeg" alt="Phishing Detector" />
+                        <div class="pt-photo-caption">🏆 2nd Prize — RV University Internal Hackathon</div>
+                    </div>
+                    <p class="pt-desc">
+                        A full-stack machine learning security platform engineered to detect phishing URLs and malicious
+                        emails with high precision.
+                    </p>
+                    <ul class="pt-highlights">
+                        <li>Trained on <span class="accent">400,000+ URLs and emails</span> achieving 98% detection
+                            accuracy</li>
+                        <li>Chrome extension with <span class="accent">real-time scanning</span> — flags sites before
+                            page loads</li>
+                        <li>Flask-based backend APIs for ML inference, logging, and analytics dashboards</li>
+                        <li>OWASP-aligned input validation and security hardening throughout</li>
+                        <li>Awarded 2nd Prize at RV University's internal Hack the Future hackathon</li>
+                    </ul>
+                    <div class="pt-footer">
+                        <div class="pt-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">ML / scikit-learn</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">Chrome Extension</span>
+                            <span class="tag">OWASP</span>
+                            <span class="tag">REST APIs</span>
+                        </div>
+                        <a href="https://github.com/CodeMaestroRishit" target="_blank" rel="noopener"
+                            class="pt-gh-link">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IGNITIA 2K25 (PITCHING) -->
+            <div class="pt-item reveal">
+                <div class="pt-node">
+                    <div class="pt-dot award-dot"></div>
+                </div>
+                <div class="pt-card">
+                    <div class="pt-meta">
+                        <span class="pt-icon">💡</span>
+                        <span class="pt-badge">🥈 Runner-up — IGNITIA 2K25</span>
+                        <span class="pt-year mono">Oct 2025</span>
+                    </div>
+                    <h2 class="pt-title">Ignitia 2k25 Startup Pitch</h2>
+                    <div class="pt-subtitle mono">Runner-up with Seed Funding</div>
+                    <div class="pt-photo-wrap">
+                        <img src="IMG_0627.jpeg" alt="Rishit Guha at Ignitia 2k25" />
+                        <div class="pt-photo-caption">🥈 Runner-up & ₹25,000 Seed Funding</div>
+                    </div>
+                    <p class="pt-desc">
+                        Successfully pitched an innovative tech startup concept at IGNITIA 2K25, securing the Runner-up
+                        position and an initial seed funding of ₹25,000 to jumpstart development and scaling.
+                    </p>
+                    <ul class="pt-highlights">
+                        <li>Awarded <span class="accent">Runner-up</span> at IGNITIA 2K25 among numerous competing teams
+                        </li>
+                        <li>Secured <span class="accent">₹25,000 seed funding</span> for project development</li>
+                        <li>Demonstrated strong product-market fit and technical feasibility during the pitch</li>
+                    </ul>
+                    <div class="pt-footer">
+                        <div class="pt-tags">
+                            <span class="tag">Entrepreneurship</span>
+                            <span class="tag">Product Strategy</span>
+                            <span class="tag">Seed Funding</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESQ HEALTHCARE -->
+            <div class="pt-item reveal">
+                <div class="pt-node">
+                    <div class="pt-dot award-dot"></div>
+                </div>
+                <div class="pt-card">
+                    <div class="pt-meta">
+                        <span class="pt-icon">🚑</span>
+                        <span class="pt-badge">🏆 EY Techathon 2025 Finalist</span>
+                        <span class="pt-year mono">Dec 2024</span>
+                    </div>
+                    <h2 class="pt-title">ResQ Healthcare</h2>
+                    <div class="pt-subtitle mono">QR-Based Smart Emergency Medical System</div>
+                    <div class="pt-photo-wrap">
+                        <img src="Resq.png" alt="ResQ Healthcare Project" />
+                    </div>
+                    <p class="pt-desc">
+                        A QR-code-driven smart healthcare platform built for EY Techathon 2025. Designed to solve the
+                        critical problem of inaccessible medical records in emergencies — the system enables first
+                        responders to instantly retrieve a patient's full history via QR, even without internet, and
+                        uses AI to summarize medical data for rapid triage decisions.
+                    </p>
+                    <ul class="pt-highlights">
+                        <li>QR-based patient record retrieval — <span class="accent">offline-first</span> architecture
+                            for emergency use</li>
+                        <li>AI-powered medical record summarization for rapid emergency triage</li>
+                        <li>MySQL relational backend for structured, HIPAA-aware health data storage</li>
+                        <li>FastAPI REST layer with authentication and role-based access control</li>
+                    </ul>
+                    <div class="pt-footer">
+                        <div class="pt-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">AI Summarization</span>
+                            <span class="tag">QR Systems</span>
+                            <span class="tag">REST APIs</span>
+                        </div>
+                        <a href="https://github.com/CodeMaestroRishit" target="_blank" rel="noopener"
+                            class="pt-gh-link">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIMANA RESQ -->
+            <div class="pt-item reveal">
+                <div class="pt-node">
+                    <div class="pt-dot award-dot"></div>
+                </div>
+                <div class="pt-card">
+                    <div class="pt-meta">
+                        <span class="pt-icon">🚦</span>
+                        <span class="pt-badge">🥇 1st Prize — IEEE Smart City Exhibition</span>
+                        <span class="pt-year mono">2nd May 2024</span>
+                    </div>
+                    <h2 class="pt-title">Vimana ResQ</h2>
+                    <div class="pt-subtitle mono">GPS + Raspberry Pi Emergency Vehicle Preemption System</div>
+                    <div class="pt-photo-wrap">
+                        <img src="IMG_4027.jpeg" alt="Vimana ResQ Project - IEEE Smart City Exhibition" />
+                        <div class="pt-photo-caption">🥇 1st Prize — IEEE Smart City Exhibition</div>
+                    </div>
+                    <p class="pt-desc">
+                        An award-winning hardware-software system that intelligently clears traffic signals for
+                        emergency
+                        vehicles in real-time. Using GPS tracking and a Raspberry Pi controller, the system detects
+                        approaching ambulances or fire trucks and commands signals to green — dramatically reducing
+                        response times in smart city environments. Awarded 1st Prize at IEEE's Smart City Infrastructure
+                        Exhibition.
+                    </p>
+                    <ul class="pt-highlights">
+                        <li><span class="accent">1st Prize</span> at IEEE Smart City Infrastructure Project Exhibition
+                        </li>
+                        <li>GPS-based real-time vehicle tracking with sub-second signal preemption trigger</li>
+                        <li>Raspberry Pi hardware stack with Python-based signal control logic</li>
+                        <li>Designed for integration with smart city traffic management infrastructure</li>
+                        <li>Reduces emergency vehicle response time by clearing intersections proactively</li>
+                    </ul>
+                    <div class="pt-footer">
+                        <div class="pt-tags">
+                            <span class="tag">Raspberry Pi</span>
+                            <span class="tag">GPS</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">IoT</span>
+                            <span class="tag">Smart City</span>
+                            <span class="tag">Hardware</span>
+                        </div>
+                        <a href="https://github.com/CodeMaestroRishit" target="_blank" rel="noopener"
+                            class="pt-gh-link">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STRUCTURED INNOVATION -->
+            <div class="pt-item reveal">
+                <div class="pt-node">
+                    <div class="pt-dot award-dot"></div>
+                </div>
+                <div class="pt-card">
+                    <div class="pt-meta">
+                        <span class="pt-icon">🎲</span>
+                        <span class="pt-badge">🏆 Structured Innovation</span>
+                        <span class="pt-year mono">Nov 2023</span>
+                    </div>
+                    <h2 class="pt-title">Structured Innovation Board Game</h2>
+                    <div class="pt-subtitle mono">New Board Game Built from Scratch</div>
+                    <div class="pt-photo-wrap">
+                        <img src="structured%20innovation.jpeg" alt="Structured Innovation Board Game" />
+                        <div class="pt-photo-caption">🏆 Best Project: Structured Innovation</div>
+                    </div>
+                    <p class="pt-desc">
+                        Conceptualized, designed, and constructed a completely new and highly original board game from
+                        scratch.
+                        We mapped out entirely novel core mechanics, meticulously balanced gameplay systems, and
+                        engineered beautiful,
+                        tactile physical components. Because of its originality and design robustness, we were awarded
+                        the Best Project by our faculty and the board game has been sent to be filed for patent
+                        protection.
+                    </p>
+                    <ul class="pt-highlights">
+                        <li>Designed <span class="accent">entirely new gameplay mechanics</span> avoiding conventional
+                            board game tropes</li>
+                        <li>Built and designed the physical components necessary for gameplay prototyping</li>
+                        <li>Awarded <span class="accent">Best Project</span> by reviewers</li>
+                        <li>Sent to the IP administration for <span class="accent">filing an official patent</span></li>
+                    </ul>
+                    <div class="pt-footer">
+                        <div class="pt-tags">
+                            <span class="tag">Board Game Design</span>
+                            <span class="tag">Game Mechanics</span>
+                            <span class="tag">Patent Filing</span>
+                            <span class="tag">Prototyping</span>
+                            <span class="tag">Innovation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TIMELINE END MESSAGE -->
+            <div class="timeline-end-msg reveal"
+                style="text-align: center; margin-top: 4rem; padding: 2rem; position: relative; z-index: 2;">
+                <h3 class="mono"
+                    style="color: var(--accent); font-size: 1.5rem; letter-spacing: 0.05em; font-weight: 600; text-transform: uppercase;">
+                    Work in progress...</h3>
+                <p style="color: var(--text-sec); font-size: 1.1rem; margin-top: 0.5rem; font-style: italic;">more
+                    trophies incoming 🏆</p>
+                <div
+                    style="width: 2px; height: 60px; background: linear-gradient(to bottom, var(--accent), transparent); margin: 2rem auto 0; opacity: 0.5;">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <span class="mono footer-copy">&copy; 2026 Rishit Guha · Built with ❤️ &amp; chai</span>
+            <div class="footer-socials">
+                <a href="https://github.com/CodeMaestroRishit" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/rishit-guha" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                </a>
+            </div>
+            <span class="mono footer-loc">📍 Bengaluru, India</span>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Hamburger
+        const ham = document.getElementById('hamburger');
+        const links = document.getElementById('nav-links');
+        ham.addEventListener('click', () => {
+            ham.classList.toggle('open');
+            links.classList.toggle('open');
+        });
+
+
+        // Timeline scroll fill
+        const timeline = document.querySelector('.project-timeline');
+        const progress = document.getElementById('timelineProgress');
+
+        window.addEventListener('scroll', () => {
+            if (timeline && progress) {
+                const rect = timeline.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                const scrollPosition = (windowHeight / 2) - rect.top;
+                const timelineHeight = rect.height;
+
+                let fill = (scrollPosition / timelineHeight) * 100;
+                fill = Math.max(0, Math.min(100, fill));
+                progress.style.height = `${fill}%`;
+
+                document.querySelectorAll('.pt-item').forEach(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    const dot = item.querySelector('.pt-dot');
+                    if (itemRect.top < windowHeight / 2) {
+                        dot.style.background = 'var(--accent)';
+                        dot.style.borderColor = 'var(--accent)';
+                        dot.style.boxShadow = '0 0 0 8px rgba(232, 168, 56, 0.3)';
+                    } else {
+                        dot.style.background = 'var(--bg-base)';
+                        dot.style.borderColor = dot.classList.contains('award-dot') ? 'var(--accent)' : 'var(--text-primary)';
+                        dot.style.boxShadow = dot.classList.contains('award-dot') ? '0 0 0 5px rgba(232, 168, 56, 0.15)' : '0 0 0 4px rgba(232, 168, 56, 0.2)';
+                    }
+                });
+            }
+        }, { passive: true });
+
+        // Scroll reveal
+        const items = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, idx) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), idx * 100);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        items.forEach(el => observer.observe(el));
+
+        // Floating particles
+        const canvas = document.getElementById('hero-particles');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.4 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                        this.reset();
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(232, 168, 56, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+    </script>
+
+</body>
+
+</html>
